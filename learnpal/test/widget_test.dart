@@ -7,24 +7,46 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learnpal/main.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Dashboard smoke test with new design', (
+    WidgetTester tester,
+  ) async {
+    // Mock network images to prevent 404 errors in tests
+    mockNetworkImagesFor(() async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(const ProviderScope(child: LearnPalApp()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      // Allow the widget tree to settle.
+      await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      // Verify that the "A+ Mission Control" is present
+      expect(find.text('A+ Mission Control'), findsOneWidget);
+      expect(find.text('Your personalized path to success.'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      // Verify the new Quick Actions section and its items
+      expect(find.text('Quick Actions'), findsOneWidget);
+      expect(find.text('Review Due'), findsOneWidget);
+      expect(find.text('New Quiz'), findsOneWidget);
+      expect(find.text('Create Card'), findsOneWidget);
+      expect(find.text('Generate AI'), findsOneWidget);
+
+      // Verify the "Continue Learning" section
+      expect(find.text('Continue Learning'), findsOneWidget);
+
+      // Verify that the old, removed widgets are NOT present
+      expect(find.text('Leaderboard'), findsNothing);
+      expect(find.text('Top Pick This Week!'), findsNothing);
+
+      // Verify navigation bar is present
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Flashcards'), findsOneWidget);
+      // Corrected: The label is 'Quiz', not 'Leaderboard'.
+      expect(find.text('Quiz'), findsOneWidget);
+      expect(find.text('Profile'), findsOneWidget);
+    });
   });
 }
