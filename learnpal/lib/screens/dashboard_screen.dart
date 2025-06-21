@@ -55,8 +55,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           children: [
             CircleAvatar(
               radius: 28,
+              backgroundColor: Colors.white,
               backgroundImage: NetworkImage(
-                'https://randomuser.me/api/portraits/men/32.jpg',
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png',
               ),
             ),
             SizedBox(width: 12),
@@ -73,7 +74,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "Mike Lewis",
+                  "Rexhens",
                   style: TextStyle(
                     color: Color(0xFF1E1E1E),
                     fontSize: 24,

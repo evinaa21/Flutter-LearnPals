@@ -46,13 +46,14 @@ class ProfileScreen extends ConsumerWidget {
       children: [
         const CircleAvatar(
           radius: 50,
+          backgroundColor: Colors.white,
           backgroundImage: NetworkImage(
-            'https://randomuser.me/api/portraits/men/32.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png',
           ),
         ),
         const SizedBox(height: 16),
         const Text(
-          "Mike Lewis",
+          "Rexhens",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -61,7 +62,7 @@ class ProfileScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 4),
         const Text(
-          "mike.lewis@example.com",
+          "rexhens@learnpal.app",
           style: TextStyle(fontSize: 16, color: Color(0xFF8A8A8E)),
         ),
         const SizedBox(height: 20),

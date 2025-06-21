@@ -28,8 +28,23 @@ class FlashcardNotifier extends StateNotifier<List<Flashcard>> {
 
   FlashcardNotifier(this._box) : super(_box.values.toList());
 
-  void addFlashcard(Flashcard flashcard) {
-    _box.put(flashcard.id, flashcard);
+  // Updated to handle object creation internally
+  void addFlashcard({
+    required String front,
+    required String back,
+    required String category,
+  }) {
+    final id = _generateId();
+    final now = DateTime.now();
+    final newFlashcard = Flashcard(
+      id: id,
+      front: front,
+      back: back,
+      category: category.isEmpty ? 'General' : category,
+      createdAt: now,
+      lastReviewed: now,
+    );
+    _box.put(id, newFlashcard);
     state = _box.values.toList();
   }
 
@@ -43,7 +58,7 @@ class FlashcardNotifier extends StateNotifier<List<Flashcard>> {
     state = _box.values.toList();
   }
 
-  String generateId() {
+  String _generateId() {
     return DateTime.now().millisecondsSinceEpoch.toString() +
         Random().nextInt(1000).toString();
   }

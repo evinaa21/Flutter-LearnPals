@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/flashcard.dart';
 import '../providers/flashcard_provider.dart';
+import '../widgets/create_flashcard_sheet.dart'; // Import the new widget
 import 'dart:math' as math;
 
 class FlashcardsScreen extends ConsumerStatefulWidget {
@@ -83,7 +84,7 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showCreateFlashcardDialog(),
+        onPressed: () => _showCreateFlashcardSheet(), // Updated this line
         backgroundColor: const Color(0xFF7B61FF),
         foregroundColor: Colors.white,
         shape: const CircleBorder(),
@@ -342,10 +343,14 @@ class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
     );
   }
 
-  void _showCreateFlashcardDialog() {
-    // TODO: Implement a new, styled dialog
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Create flashcard dialog coming soon!')),
+  void _showCreateFlashcardSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) => const CreateFlashcardSheet(),
     );
   }
 }
